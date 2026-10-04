@@ -1,0 +1,53 @@
+{% extends "base.html" %} {% block title %} Post... | Login {% endblock title %}
+{% block main %}
+
+<div class="form-page">
+  <form method="post" class="card shadow p-4 form-box">
+    {% csrf_token %}
+
+    <div class="mb-3">
+      <label for="{{ form.username.id_for_label }}" class="form-label">
+        Username:
+      </label>
+
+      <input
+        type="text"
+        class="form-control"
+        name="{{ form.username.html_name }}"
+        id="{{ form.username.id_for_label }}"
+        value="{{ form.username.value|default:'' }}"
+      />
+
+      {% if form.username.errors %}
+      <div class="alert alert-danger mt-2">{{ form.username.errors }}</div>
+      {% endif %}
+    </div>
+
+    <div class="mb-3">
+      <label for="{{ form.password.id_for_label }}" class="form-label">
+        Password:
+      </label>
+
+      <input
+        type="password"
+        class="form-control"
+        name="{{ form.password.html_name }}"
+        id="{{ form.password.id_for_label }}"
+      />
+
+      {% if form.password.errors %}
+      <div class="alert alert-danger mt-2">{{ form.password.errors }}</div>
+      {% endif %}
+    </div>
+
+    {% if form.non_field_errors %}
+    <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+    {% endif %}
+
+    <div class="d-flex justify-content-center align-items-center">
+      <button type="submit" class="btn btn-primary">Login</button>
+    </div>
+  </form>
+</div>
+
+{% endblock main %}
